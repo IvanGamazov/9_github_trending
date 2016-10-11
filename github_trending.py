@@ -22,17 +22,12 @@ def get_trending_repositories():
     return repositories
 
 
-def get_open_issues_amount(repository):
-    response = requests.request('GET', repository['url']+'/issues')
-    return len(response.json())
-
-
 def get_top_repos(repositories):
     top_repos = []
     for repo in repositories:
         top_repo = {'name': repo['name'],
                     'url': repo['html_url'],
-                    'issues': get_open_issues_amount(repo),
+                    'issues': repo['open_issues_count'],
                     'stars': repo['stargazers_count']}
         top_repos.append(top_repo)
     return top_repos
